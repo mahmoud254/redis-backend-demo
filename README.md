@@ -4,7 +4,7 @@ This repo is home to any and all code related to cat api. It contains the applic
 and the kubernetes manifests (in Kubernetes folder).
 
 # Architecture
-![Alt text](./docs/node_js_infra.svg?raw=true "Architecture")
+![Alt text](./docs/node_js_infra.png?raw=true "Architecture")
 
 # Prerequisites:
 1. npm  ---> https://docs.npmjs.com/cli/v6/commands/npm-install
