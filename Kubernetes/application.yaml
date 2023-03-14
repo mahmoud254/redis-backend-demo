@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL:
+    repoURL: https://github.com/mahmoud254/redis-backend-demo.git
     targetRevision: HEAD
     path: Kubernetes/dev
   destination:
