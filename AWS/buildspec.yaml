@@ -28,7 +28,7 @@ phases:
       - export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
       - export AWS_EXPIRATION=$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')
       - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
-      - python3 env.py
+      - python3 Kubernetes/dev/env.py
       - kubectl apply -f Kubernetes/dev/secrets.yml
       - kubectl apply -f Kubernetes/dev/deployment.yml 
       - kubectl apply -f Kubernetes/dev/service.yml 
