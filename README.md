@@ -141,9 +141,9 @@ This api has 3 endpoints, we will go througth them
     that expires in an hour and it should be used in the frontend to display the image. The 's3Uri' should
     not be used as you will get an error because the s3 bucket is private.
 
-# Note about the meks manifests
-in the maifests filder there's a file to deploy ingress.yaml for the application, it's working and 
-we have in our cluster an nginx abd an alb ingress, I am not applting the ingress file in the pipeline
-and just using a service of type LoadBalancer. If an ingress was to be uses, change the service type to be
-- NodePort ---> ALB ingress
-- ClusterIP or NodePort  ---> Nginx Ingress
+# Note about the EKS manifests
+in the maifests folder there's a file to deploy ingress.yaml for the application, it's working and 
+we have in our cluster an nginx and an alb ingress, I am not applying the ingress file in the pipeline
+and just using a service of type LoadBalancer. If an ingress is to be used, change the service type to be
+- NodePort ---> for ALB ingress
+- ClusterIP or NodePort  ---> for Nginx Ingress
