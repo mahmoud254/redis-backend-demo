@@ -27,7 +27,7 @@ const setUpDatabase = async () => {
     await Image.deleteMany();
     await new Image(defaultImage).save();
     await scanAndDelete(redisClient, "*")
-    await new Promise(resolve => setTimeout(resolve, 5000));
+    // await new Promise(resolve => setTimeout(resolve, 5000));
 };
 
 module.exports = {
