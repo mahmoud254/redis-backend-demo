@@ -17,7 +17,8 @@ secret_name = "TEST"
 region_name = "eu-central-1"
 
 # Path of the secrets file you want to inject the values into
-secret_file_path = "../Kubernetes/dev/secrets.yml"
+# secret_file_path = "../Kubernetes/dev/secrets.yml"
+secret_file_path = "./secrets.yml"
 # secret_file_path = "./secrets.yml"
 
 # Conecting to secret manager and getting the secret values
