@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-backend-prod
+  labels:
+    app: nodejs-backend-prod
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-backend-prod
+  template:
+    metadata:
+      labels:
+        app: nodejs-backend-prod
+    spec:
+      containers:
+      - name: nodejs-backend-prod
+        image: CONTAINER_IMAGE # 971764590821.dkr.ecr.eu-central-1.amazonaws.com/backend-dev:v1.0
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - secretRef:
+            name: nodejs-backend-prod
+
+---
+
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nodejs-backend-prod
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nodejs-backend-prod
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 70 

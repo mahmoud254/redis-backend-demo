@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-backend-prod
+  labels:
+    service: nodejs-backend-prod
+  namespace: default
+spec:
+  type: LoadBalancer # NodePort
+  selector:
+    app: nodejs-backend-prod
+  ports:
+  - port: 3000
+    targetPort: 3000 
