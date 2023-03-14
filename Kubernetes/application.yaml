@@ -1,20 +1,16 @@
+
+
 apiVersion: argoproj.io/v1alpha1
-kind: AppProject
+kind: Application
 metadata:
   name: test
   namespace: argocd
 spec:
-  project: default
-  source:
-    repoURL: https://github.com/mahmoud254/redis-backend-demo.git
-    targetRevision: HEAD
-    path: Kubernetes/dev
   destination:
-    server: https://kubernetes.default.svc
-    namespace: myapp
-  syncPolicy:
-    syncOptions:
-    - CreateNamespace=true
-    automated:
-      selfHeal: true
-      prune: true
+    namespace: default
+    server: "https://kubernetes.default.svc"
+  source:
+    path: Kubernetes/dev
+    repoURL: "https://github.com/mahmoud254/redis-backend-demo.git"
+    targetRevision: HEAD
+  project: default
