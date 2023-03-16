@@ -12,6 +12,8 @@ spec:
     path: Kubernetes/dev
     repoURL: "https://github.com/mahmoud254/redis-backend-demo.git"
     targetRevision: HEAD
+    directory:
+      exclude: '{secrets.yml,env.py}'
   project: default
   syncPolicy:
     syncOptions:
