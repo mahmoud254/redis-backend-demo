@@ -148,5 +148,6 @@ and just using a service of type LoadBalancer. If an ingress is to be used, chan
 - NodePort ---> for ALB ingress
 - ClusterIP or NodePort  ---> for Nginx Ingress
 
+
 2. In the file Kubernetes/dev/env.py, the line that says (secret_name = "TEST")
 switch TEST with you actual secret name in secrets manager.
