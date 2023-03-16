@@ -11,7 +11,7 @@ def enc_64(message):
   return base64_message 
  
 # Secret name of the sectet you want to get from secret manager
-secret_name = "TEST"
+secret_name = "mahmoud-alaa-test-secret"
 
 # Name of the region the secret is created in
 region_name = "eu-central-1"
