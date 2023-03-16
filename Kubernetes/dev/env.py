@@ -14,7 +14,7 @@ def enc_64(message):
 secret_name = "mahmoud-alaa-test-secret"
 
 # Name of the region the secret is created in
-region_name = "eu-central-1"
+region_name = "us-east-1"
 
 # Path of the secrets file you want to inject the values into
 # secret_file_path = "../Kubernetes/dev/secrets.yml"

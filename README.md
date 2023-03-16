@@ -150,4 +150,5 @@ and just using a service of type LoadBalancer. If an ingress is to be used, chan
 
 
 2. In the file Kubernetes/dev/env.py, the line that says (secret_name = "TEST")
-switch TEST with you actual secret name in secrets manager.
+switch TEST with you actual secret name in secrets manager, also change
+(region_name = "us-east-1") with your region.
