@@ -20,7 +20,6 @@ phases:
         - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY:$TAG"'@' Kubernetes/dev/deployment.yml
         - $(aws ecr get-login --no-include-email)
         - export KUBECONFIG=$HOME/.kube/config
-        - git clone https://github.com/mahmoud254/cats-helm-chart.git
   build:
     commands:
       - docker build --tag $REPOSITORY:$TAG .
