@@ -6,7 +6,7 @@ metadata:
     service: nodejs-backend-prod
   namespace: default
 spec:
-  type: LoadBalancer # NodePort
+  type: NodePort
   selector:
     app: nodejs-backend-prod
   ports:
