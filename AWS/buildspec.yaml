@@ -17,7 +17,7 @@ phases:
   pre_build:
       commands:
         - TAG="$(date +%Y-%m-%d.%H.%M.%S).$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
-        - git clone https://$GITHUB_USERNAME:$GITHUB_PASSWORD@github.com/mahmoud254/cats-helm-chart.git
+        - git clone https://github.com/mahmoud254/cats-helm-chart.git
         - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY:$TAG"'@' cats-helm-chart/values.yaml
         - $(aws ecr get-login --no-include-email)
   build:
@@ -30,6 +30,8 @@ phases:
       - helm package cats-helm-chart -d cats-helm-chart/
       - helm repo index cats-helm-chart --url $HELM_REPOSITORY
       - cd cats-helm-chart 
+      - git config --global user.name $GITHUB_USERNAME
+      - git config --global user.email mahmoudalaa25492@gmail.com
       - git remote set-url origin https://$GITHUB_USERNAME:$GITHUB_PASSWORD@github.com/mahmoud254/cats-helm-chart.git
       - git add . 
       - git commit -m auto-deployment-$TAG 
