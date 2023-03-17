@@ -27,8 +27,7 @@ phases:
   post_build:
     commands:
       - docker push $REPOSITORY:$TAG
-      - export BUILD_NUMBER=0.1.$(date +%y%m%d%H%M%S)
-      - helm package cats-helm-chart -d cats-helm-chart/ --version $BUILD_NUMBER
+      - helm package cats-helm-chart -d cats-helm-chart/ --version $CODEBUILD_BUILD_NUMBER
       - helm repo index cats-helm-chart --url $HELM_REPOSITORY
       - cd cats-helm-chart 
       - git config --global user.name $GITHUB_USERNAME
