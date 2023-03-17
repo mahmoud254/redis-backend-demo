@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: nodejs-backend-prod
-        image: 454717754853.dkr.ecr.eu-central-1.amazonaws.com/backend-dev:2023-03-16.18.47.49.a17cde1e # 971764590821.dkr.ecr.eu-central-1.amazonaws.com/backend-dev:v1.0
+        image: CONTAINER_IMAGE
         ports:
         - containerPort: 3000
         envFrom:
