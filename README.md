@@ -142,15 +142,3 @@ This api has 3 endpoints, we will go througth them
 3. 'GET /imagesHour' has a field called 'signedUrl' in its response, this is an s3 pre_signed url link
     that expires in an hour and it should be used in the frontend to display the image. The 's3Uri' should
     not be used as you will get an error because the s3 bucket is private.
-
-# Note about the EKS manifests
-1. In the maifests folder there's a file to deploy ingress.yaml for the application, it's working and 
-we have in our cluster an nginx and an alb ingress, I am not applying the ingress file in the pipeline
-and just using a service of type LoadBalancer. If an ingress is to be used, change the service type to be
-- NodePort ---> for ALB ingress
-- ClusterIP or NodePort  ---> for Nginx Ingress
-
-
-2. In the file Kubernetes/dev/env.py, the line that says (secret_name = "TEST")
-switch TEST with you actual secret name in secrets manager, also change
-(region_name = "us-east-1") with your region.
