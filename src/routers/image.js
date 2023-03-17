@@ -7,6 +7,7 @@ const multer = require('multer');
 const multerS3 = require('multer-s3-v2');
 
 const redisClient = require("../redis_cache/cache");
+const REDIS_HOUR_KEY = 'HourlyImage'
 
 aws.config.update({
     accessKeyId: process.env.ACCESS_KEY_ID,
@@ -76,6 +77,10 @@ router.get("/images/:name", async (req, res)=>{
         if (cacheResults) {
             console.log(`Image ${name} found on redis server!`)
             image = JSON.parse(cacheResults);
+            await redisClient.set(REDIS_HOUR_KEY, JSON.stringify(image), {
+                EX: process.env.EXPIRY, // 3600
+                NX: false,
+            });
         }else{
             console.log(`Image ${name} doesn't exist on redis server!`)
             image = await Image.findOne({name});
@@ -84,6 +89,10 @@ router.get("/images/:name", async (req, res)=>{
                 await redisClient.set(name, JSON.stringify(image), {
                     EX: process.env.EXPIRY, // 3600
                     NX: true,
+                });
+                await redisClient.set(REDIS_HOUR_KEY, JSON.stringify(image), {
+                    EX: process.env.EXPIRY, // 3600
+                    NX: false,
                 });
                 console.log(`Successfully set image ${name} on redis server.`)
             }else{
@@ -102,33 +111,19 @@ router.get("/images/:name", async (req, res)=>{
 
 router.get("/imagesHour", async (req, res)=>{
     let image;
-    const redis_hour_key = 'HourlyImage'
     try{
-        const cacheResults = await redisClient.get(redis_hour_key);
+        const cacheResults = await redisClient.get(REDIS_HOUR_KEY);
         if (cacheResults) {
             console.log(`hourly image found on redis server!`)
             image = JSON.parse(cacheResults);
-        }else{
-            console.log(`hourly image doesn't exist on redis server!`)
-            image = await Image.random()
-            if (image) {
-                const signedUrl = getSingedUrl(s3, process.env.BUCKET_NAME, image.s3Key, Number(process.env.EXPIRY));
-                image['singleURL'] = signedUrl;
-                console.log(`the random image is ${image.name}`);
-                console.log(`setting hourly image to be ${image.name} on redis server.`);
-                await redisClient.set(redis_hour_key, JSON.stringify(image), {
-                    EX: process.env.EXPIRY, // 3600
-                    NX: true,
-                });
-                console.log(`Successfully set image ${image.name} to be hourly image on redis server.`);
-            }
-        }
-        if(!image){
-            console.log("No hourly images exisit in redis or database");
+            const signedUrl = getSingedUrl(s3, process.env.BUCKET_NAME, image.s3Key, Number(process.env.EXPIRY));
+            image['singleURL'] = signedUrl;
+            res.status(200).send(image);
+        }if(!image){
+            console.log("No hourly images exisit in redis!");
             res.status(404).send();
             return;
         }
-        res.status(200).send(image);
     }catch{
         res.status(500).send();
     }
