@@ -1,0 +1,41 @@
+
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: test
+#   namespace: argocd
+# spec:
+#   destination:
+#     namespace: default
+#     server: "https://kubernetes.default.svc"
+#   source:
+#     path: Kubernetes/dev
+#     repoURL: "https://github.com/mahmoud254/redis-backend-demo.git"
+#     targetRevision: HEAD
+#     directory:
+#       exclude: '{secrets.yml,env.py}'
+#   project: default
+#   syncPolicy:
+#     syncOptions:
+#     - CreateNamespace=true
+#     automated:
+#       selfHeal: true
+#       prune: true
+
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: soum-cats
+  namespace: default
+spec:
+  project: default
+  source:
+    chart: soum-cats-app
+    repoURL: "https://github.com/mahmoud254/cats-helm-chart"
+    targetRevision: HEAD
+    helm:
+      releaseName: soum
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: default      
