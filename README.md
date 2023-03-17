@@ -133,10 +133,12 @@ This api has 3 endpoints, we will go througth them
 
 1. 'GET /images/:image_name' endpoint first checks redis if the images exists,
    if it does it returns it, if not it checks MongoDB, if found in mongo then it returns it
-   and cache it for an hour.
+   and cache it for an hour. It also sets a key in redis (hourlyImageKey for example), that key
+   is explained in point 2.
+
 2. 'GET /imagesHour' works by checking a key in redis (hourlyImageKey for example), if found then
-    an image is returend, if not then a random image will be picked from the MongoDb, cached for
-    an hour by setting that key (hourlyImageKey), then finally we return the image json object.
+    an image is returend, if not 404 image is displayed.
+    
 3. 'GET /imagesHour' has a field called 'signedUrl' in its response, this is an s3 pre_signed url link
     that expires in an hour and it should be used in the frontend to display the image. The 's3Uri' should
     not be used as you will get an error because the s3 bucket is private.
