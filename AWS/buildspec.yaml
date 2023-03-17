@@ -18,7 +18,7 @@ phases:
       commands:
         - TAG="$(date +%Y-%m-%d.%H.%M.%S).$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
         - git clone https://github.com/mahmoud254/cats-helm-chart.git
-        - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY:$TAG"'@' cats-helm-chart/values.yaml
+        - sed -i 's@IMAGE_TAG@'"$TAG"'@' cats-helm-chart/values.yaml
         - $(aws ecr get-login --no-include-email)
   build:
     commands:
